@@ -16,7 +16,6 @@ if not API_KEY:
     API_KEY=input("Paste API key: ")
 print("Verifying API key ... ",end="",flush=True)
 genai.configure(api_key=API_KEY)
-print("done")
 chat = genai.GenerativeModel('gemini-2.5-flash',system_instruction = """
     You are an automated grading engine. Your task is to analyze the provided image of a multiple-choice question or problem.
     1. Identify the correct answer(s) based on the content of the image.
@@ -27,11 +26,12 @@ chat = genai.GenerativeModel('gemini-2.5-flash',system_instruction = """
 
 images = ['Checkbox.png','Question-Icon.png','Next-Question.png','Submit.png','Topleft-Corner.png','Bottomright-Corner.png','Continue.png','Final.png']
 images = ['imgs\\'+i for i in images]
-print("The program has started. Make sure all possible answer choices can be seen when a question appears.")
-
+print("done\nYou are logged in! If you are ready to start the program, make sure you have an Edpuzzle assignment open and running. Otherwise, type 'quit' and press enter to exit.")
+print("NOTE: Make sure all possible answer choices can be seen at one time.")
+if input()=="exit": exit()
+print("The program will start listening in 10 seconds. Switch to the Edpuzzle page.")
+time.sleep(10)
 def isOnScreen(*images: str): return any([bool(gui.locateOnScreen(i,confidence=0.8)) for i in images])
-
-time.sleep(3)
 
 while True:
     if isOnScreen(images[1],images[6]):
@@ -46,3 +46,4 @@ while True:
         gui.leftClick(gui.locateCenterOnScreen(images[7],confidence=0.8))
 
         break
+
