@@ -26,6 +26,7 @@ chat = genai.GenerativeModel('gemini-2.5-flash',system_instruction = """
     """).start_chat(history=[])
 
 images = ['Checkbox.png','Question-Icon.png','Next-Question.png','Submit.png','Topleft-Corner.png','Bottomright-Corner.png','Continue.png','Final.png']
+images = ['imgs\\'+i for i in images]
 print("The program has started. Make sure all possible answer choices can be seen when a question appears.")
 
 def isOnScreen(*images: str): return any([bool(gui.locateOnScreen(i,confidence=0.8)) for i in images])
@@ -43,4 +44,5 @@ while True:
         gui.leftClick(next((coord for coord in [gui.locateCenterOnScreen(images[x],confidence=0.8) for x in [2,3,6]] if coord is not None),(None,None)))
     elif isOnScreen(images[7]):
         gui.leftClick(gui.locateCenterOnScreen(images[7],confidence=0.8))
+
         break
